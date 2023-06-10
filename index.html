@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: beige;
+        width: 600px;
+        height: 100px;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid black;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: red;
+        position: absolute;
+        bottom: 0;
+        padding: 10px;
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div id="circle" class="circle"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        var circle = document.getElementById("circle");
+        var box = document.getElementById("box");
+        var boxWidth = box.offsetWidth;
+        var circleWidth = circle.offsetWidth;
+        var circlePos = (boxWidth - circleWidth) / 2;
+
+        function moveCircle(event) {
+          if (event.keyCode === 37) {
+            // Left arrow key
+            circlePos -= 10;
+          } else if (event.keyCode === 39) {
+            // Right arrow key
+            circlePos += 10;
+          }
+
+          // Restrict circle position within the box
+          circlePos = Math.max(0, Math.min(circlePos, boxWidth - circleWidth));
+
+          circle.style.left = circlePos + "px";
+        }
+
+        document.addEventListener("keydown", moveCircle);
+      });
+    </script>
+  </body>
+</html>
